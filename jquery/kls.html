@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Purchase Details</title>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+<form class="form-horizontal" method="POST" action="<?php echo base_url();?>Purchase/add">
+    <section class="content">
+      <div class="row">
+
+        <!-- right column -->
+        <div class="col-md-12">
+          <!-- Horizontal Form -->
+          <div class="box box-info">
+            <div class="box-header with-border">
+              <input type="hidden" id="size" >      
+              <h3 class="box-title">PURCHASE DETAILS</h3>
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <input type="hidden" id="response" value="" />
+            <div class="box-body">
+              <div class="form-group">
+
+                <label for="product_name" class="col-sm-2 control-label"> Supplier Name <span style="color:red">*</span></label>
+                <div class="col-sm-2">
+
+                 <select class="form-control" id="suppliername" name="suppliername">
+                   <option>Select</option>
+                   <option>Select</option>
+                   <option>Select</option>
+                 </select>
+               </div>
+               <label for="product_name" class="col-sm-2 control-label ">Invoice No: </label>
+               <div class="col-sm-2">
+                 <input type="text" placeholder="Invoice No"  class="form-control" name="invoiceno" id="InvoiceNo" value="">
+               </div>
+               <label for="product_name" class="col-sm-1 control-label ">Date: </label>
+               <div class="col-sm-2">
+                 <input type="tex" placeholder="Date" data-pms-required="true" class="form-control" name="purchase_date" id="date" value="">
+               </div>
+             </div>
+              
+            </div>
+            <div class="box-body">
+              <div class="form-group">
+
+                <label for="product_name" class="col-sm-2 control-label">Payment Type:<span style="color:red"></span></label>
+                <div class="col-sm-1">
+                <label>card</label> <input type="radio" placeholder="card" name="paymenttype" id="paymenttype" value="card">
+                 </div>
+                  <div class="col-sm-1">
+                <label>cash</label>  <input type="radio" name="paymenttype" value="cash"> 
+                </div>
+                 
+               <label for="product_name" class="col-sm-2 control-label ">Phone No: </label>
+               <div class="col-sm-2">
+                 <input type="tex" placeholder="phoneno" data-pms-required="true" class="form-control" name="phoneno" id="phoneno" value="">
+               </div>
+               <label for="product_name" class="col-sm-1 control-label ">GST: </label>
+               <div class="col-sm-2">
+                 <input type="text" placeholder="GST" data-pms-required="true" class="form-control" name="gst" id="date" value="">
+               </div>
+             </div>
+            
+            
+            </div>
+             <div class="row">
+               <div class="col-md-9"></div>
+               <div class="col-md-3">
+                 <label >Item Total</label>
+                 <input type="tex" name="itemtotal" class="form-control itemtotal " id="itemtotal">
+                 <label >Tax Total</label>
+                 <input type="tex" name="taxtotal" class="form-control taxtotal" id="taxtotal" value="0">
+                  <label >Total Amt</label>
+                 <input type="tex" name="totalamt" class="form-control totalamt" id="totalamt" value="0">
+                  <label >Discount Amt</label>
+                 <input type="tex" name="discountamt" class="form-control discountamt" id="discountamt" value="0">
+                  <label >Net Amt</label>
+                 <input type="tex" name="netamt" class="form-control netamt" id="netamt" value="0" >
+               </div>
+             </div>
+             <br>
+             <div class="row">
+               <div class="col-md-12">
+                   
+                <div class="col-sm-3" class="control-label">
+                  <label for="product_name" >OldBalance<span style="color:red"></span></label>
+                 <input type="tex" placeholder="oldbalance" data-pms-required="true" class="form-control" name="oldbalance" id="oldbalance" value="0">
+               </div>
+               
+                <div class="col-sm-3" class="control-label">
+                  <label for="product_name" >Vehicle Charge<span style="color:red"></span></label>
+                 <input type="tex" placeholder="vechilecharge" data-pms-required="true" class="form-control" name="vechilecharge" id="vechilecharge" value="0" onkeyup="getBalance()">
+               </div>
+                
+                <div class="col-sm-3" class="control-label">
+                  <label for="product_name" >Paid Amount<span style="color:red"></span></label>
+                 <input type="tex" placeholder="paidamount" data-pms-required="true" class="form-control" name="paidamount" id="paidamount" value="0" onkeyup="getBalance()">
+               </div>
+                <div class="col-sm-3" class="control-label">
+                  <label for="product_name">Balance Amount<span style="color:red"></span></label>
+                 <input type="tex" placeholder="Balance Amount" data-pms-required="true" class="form-control" name="balanceamount" id="balanceamount" value="0">
+               </div>
+                         <!-- <DIV class="product-item box box-success id="list"><input type="checkbox" name="item_index[]"/><table class="table table-bordered" cellspacing="1" ><tr><div class="form-group"><div class="col-sm-1">
+
+                          <select name="itemcode[]"  class="form-control product_size"  id="product_size'+counter+'" placeholder="Size" autofocus />
+                             <?php
+                  foreach ($itemcode as $key ) {
+                  ?>
+                    <option value="<?php echo $key->item_id ?>"><?php echo $key->item_code ?></option>
+                  <?php
+                  }
+                  ?>
+                          </select></div> 
+
+
+                          <div class="form-group"><div class="col-sm-2"><input type="text" name="itemname" class="form-control product_cmpny"placeholder="itemname"id="product_cmpny'+counter+'" autofocus> </div><div class="form-group"><div class="col-sm-2"><input type="text" name="qty[]" class="form-control product_num" id="product_num'+counter+'" autofocus placeholder="qty"></div><div class="form-group"><div class="col-sm-1"><select name="unit[]"  class="form-control product_size"  id="product_size'+counter+'" autofocus /></select></div><div class="form-group"><div class="col-sm-2"><input type="text" name="unitprice[]" class="form-control product_num" id="product_num'+counter+'" autofocus placeholder="unitprice"></div><div class="form-group"><div class="col-sm-1"><select name="tax[]"  class="form-control product_size"  id="product_size'+counter+'" autofocus /></select></div><div class="form-group"><div class="col-sm-2"><input type="text" name="total[]" class="form-control product_num" id="product_num'+counter+'" autofocus placeholder="total"></div></tr></table></DIV> -->
+                          <input type="hidden" name="counter" value="0"  id="counter" class="form-control counter">
+               </div>
+             </div><br>
+                    <div class="box-footer">                
+                <div class="row">
+                  <div class="col-md-6">
+                  </div>
+                  <div class="col-md-4">
+                      <button type="button" class="btn btn-danger" onclick="window.location.reload();">Cancel</button>
+                      <button type="submit" class="btn btn-primary" >Save</button>
+                    </div>
+                  </div>
+      </div>
+              
+             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </form>
+</div>
+            
+      </div>
+          <!-- /.box -->
+		
+        </div>
+        <!--/.col (right) -->
+     </div>
+   </form>
+
+    
+ </div>
+</DIV>
+</div>
+</div>
+</div>
+</div>
+</section></form>
+
+</body>
+</html>
